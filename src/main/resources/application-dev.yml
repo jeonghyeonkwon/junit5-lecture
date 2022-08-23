@@ -1,0 +1,35 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /
+    encoding:
+      charset: utf-8
+
+spring:
+  datasource:
+    url: jdbc:mariadb://127.0.0.1:3307/junit-test?serverTimezone=Asia/Seoul
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: root
+    password: 1234
+  h2:
+    console:
+      enabled: true
+  jpa:
+    open-in-view: true
+    hibernate:
+      ddl-auto: create
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+    properties:
+      '[hibernate.format_sql]': true
+
+  output:
+    ansi:
+      enabled: always
+
+logging:
+  level:
+    '[org.springframework.web]': DEBUG
+    '[org.hibernate]': DEBUG
+#[출처] 스프링부트 + Junit 강의 yml 코드 (메타코딩) | 작성자 metacoding
