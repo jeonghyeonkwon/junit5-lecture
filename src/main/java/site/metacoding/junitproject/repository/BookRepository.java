@@ -1,4 +1,7 @@
 package site.metacoding.junitproject.repository;
 
-public interface BookRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+import site.metacoding.junitproject.domain.Book;
+
+public interface BookRepository extends JpaRepository<Book, Long> {
 }
