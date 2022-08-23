@@ -11,9 +11,6 @@ spring:
     driver-class-name: org.mariadb.jdbc.Driver
     username: root
     password: 1234
-  h2:
-    console:
-      enabled: true
   jpa:
     open-in-view: true
     hibernate:
