@@ -7,10 +7,13 @@ server:
 
 spring:
   datasource:
-    url: jdbc:mariadb://127.0.0.1:3307/junit-test?serverTimezone=Asia/Seoul
-    driver-class-name: org.mariadb.jdbc.Driver
-    username: root
-    password: 1234
+    url: jdbc:h2:mem:test
+    driver-class-name: org.h2.Driver
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true
   jpa:
     open-in-view: true
     hibernate:
