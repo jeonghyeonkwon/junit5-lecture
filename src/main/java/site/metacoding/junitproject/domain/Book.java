@@ -27,4 +27,10 @@ public class Book {
         this.title = title;
         this.author = author;
     }
+
+    public Book update(String title, String author) {
+        this.title = title;
+        this.author = author;
+        return this;
+    }
 }
