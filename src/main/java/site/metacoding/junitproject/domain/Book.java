@@ -3,6 +3,7 @@ package site.metacoding.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import site.metacoding.junitproject.dto.BookResponse;
 
 import javax.persistence.*;
 
@@ -32,5 +33,14 @@ public class Book {
         this.title = title;
         this.author = author;
         return this;
+    }
+    public BookResponse toDto(){
+        return  BookResponse.builder()
+                .id(this.id)
+                .title(this.title)
+                .author(this.author)
+                .build();
+
+
     }
 }

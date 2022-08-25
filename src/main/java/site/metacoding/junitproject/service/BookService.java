@@ -30,21 +30,21 @@ public class BookService {
             }
         }
 
-        return new BookResponse().toDto(bookPS);
+        return bookPS.toDto();
     }
     // 2. 책 목록보기
 
     public List<BookResponse> 책목록보기(){
         return bookRepository.findAll()
                 .stream()
-                .map(new BookResponse()::toDto).collect(Collectors.toList());
+                .map(Book::toDto).collect(Collectors.toList());
     }
     // 3. 책 책한건 보기
 
     public BookResponse 책한건보기(Long id){
         Optional<Book> bookOP = bookRepository.findById(id);
         if(bookOP.isPresent()){
-            return new BookResponse().toDto(bookOP.get());
+            return bookOP.get().toDto();
         }else{
             throw new RuntimeException("해당 아이디를 찾을 수 없습니다");
         }
