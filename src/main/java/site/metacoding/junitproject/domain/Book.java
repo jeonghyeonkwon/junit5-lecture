@@ -3,7 +3,7 @@ package site.metacoding.junitproject.domain;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import site.metacoding.junitproject.dto.BookResponse;
+import site.metacoding.junitproject.dto.response.BookResponse;
 
 import javax.persistence.*;
 

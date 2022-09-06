@@ -4,8 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.metacoding.junitproject.domain.Book;
-import site.metacoding.junitproject.dto.BookResponse;
-import site.metacoding.junitproject.dto.BookSaveRequest;
+import site.metacoding.junitproject.dto.response.BookResponse;
+import site.metacoding.junitproject.dto.request.BookSaveRequest;
 import site.metacoding.junitproject.repository.BookRepository;
 import site.metacoding.junitproject.util.MailSender;
 

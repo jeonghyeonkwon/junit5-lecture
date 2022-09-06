@@ -6,21 +6,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import site.metacoding.junitproject.domain.Book;
-import site.metacoding.junitproject.dto.BookResponse;
-import site.metacoding.junitproject.dto.BookSaveRequest;
+import site.metacoding.junitproject.dto.response.BookResponse;
+import site.metacoding.junitproject.dto.request.BookSaveRequest;
 import site.metacoding.junitproject.repository.BookRepository;
 import site.metacoding.junitproject.util.MailSender;
-import site.metacoding.junitproject.util.MailSenderStub;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.BDDMockito.given;
 import static org.mockito.Mockito.*;
