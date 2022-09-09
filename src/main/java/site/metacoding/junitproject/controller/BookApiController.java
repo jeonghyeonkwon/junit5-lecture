@@ -39,7 +39,7 @@ public class BookApiController {
                 errorMap.put(fieldError.getField(),fieldError.getDefaultMessage());
             }
             log.error("{}",errorMap);
-            return new ResponseEntity(CMRespDto.builder().code(-1).msg(errorMap.toString()).body(null).build(),HttpStatus.BAD_REQUEST);
+            throw new RuntimeException(errorMap.toString());
         }
         BookResponse bookRespDto = bookService.책등록하기(bookSaveRequest);
 
