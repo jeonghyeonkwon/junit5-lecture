@@ -7,6 +7,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import site.metacoding.junitproject.domain.Book;
+import site.metacoding.junitproject.dto.response.BookListResponse;
 import site.metacoding.junitproject.dto.response.BookResponse;
 import site.metacoding.junitproject.dto.request.BookSaveRequest;
 import site.metacoding.junitproject.repository.BookRepository;
@@ -76,15 +77,15 @@ class BookServiceTest {
         when(bookRepository.findAll()).thenReturn(bookList);
 
         //when
-        List<BookResponse> list = bookService.책목록보기();
+        BookListResponse list = bookService.책목록보기();
 
         //print
 
-        list.forEach((data)->log.info("id : {} title : {} author : {}",data.getId(),data.getTitle(),data.getAuthor()));
+        list.getBookList().forEach((data)->log.info("id : {} title : {} author : {}",data.getId(),data.getTitle(),data.getAuthor()));
         //then
-        assertThat(list.get(0).getId()).isEqualTo(1L);
-        assertThat(list.get(0).getTitle()).isEqualTo("제목1");
-        assertThat(list.get(0).getAuthor()).isEqualTo("저자1");
+        assertThat(list.getBookList().get(0).getId()).isEqualTo(1L);
+        assertThat(list.getBookList().get(0).getTitle()).isEqualTo("제목1");
+        assertThat(list.getBookList().get(0).getAuthor()).isEqualTo("저자1");
     }
 
 

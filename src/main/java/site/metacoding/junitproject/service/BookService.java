@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import site.metacoding.junitproject.domain.Book;
+import site.metacoding.junitproject.dto.response.BookListResponse;
 import site.metacoding.junitproject.dto.response.BookResponse;
 import site.metacoding.junitproject.dto.request.BookSaveRequest;
 import site.metacoding.junitproject.repository.BookRepository;
@@ -34,10 +35,12 @@ public class BookService {
     }
     // 2. 책 목록보기
 
-    public List<BookResponse> 책목록보기(){
-        return bookRepository.findAll()
+    public BookListResponse 책목록보기(){
+        List<BookResponse> dtos = bookRepository.findAll()
                 .stream()
                 .map(Book::toDto).collect(Collectors.toList());
+        BookListResponse bookListResponse = BookListResponse.builder().bookList(dtos).build();
+        return bookListResponse;
     }
     // 3. 책 책한건 보기
 
