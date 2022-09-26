@@ -2,7 +2,7 @@ package site.metacoding.junitproject.util;
 
 import org.springframework.stereotype.Component;
 
-//@Component
+@Component
 public class MailSenderAdapter implements MailSender{
     private Mail mail;
 

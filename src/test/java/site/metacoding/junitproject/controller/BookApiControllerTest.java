@@ -25,8 +25,8 @@ import static org.junit.jupiter.api.Assertions.*;
 class BookApiControllerTest {
     // 이렇게 조회 하면 안됨
 //    private final BookService bookService;
-    @Autowired
-    private BookService bookService;
+//    @Autowired
+//    private BookService bookService;
 
     @Autowired
     private TestRestTemplate rt;
