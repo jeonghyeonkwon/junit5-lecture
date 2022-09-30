@@ -7,12 +7,16 @@ import com.jayway.jsonpath.JsonPath;
 import lombok.RequiredArgsConstructor;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.context.jdbc.Sql;
+import site.metacoding.junitproject.domain.Book;
 import site.metacoding.junitproject.dto.request.BookSaveRequest;
+import site.metacoding.junitproject.repository.BookRepository;
 import site.metacoding.junitproject.service.BookService;
 
 import static org.assertj.core.api.Assertions.*;
@@ -30,16 +34,49 @@ class BookApiControllerTest {
 
     @Autowired
     private TestRestTemplate rt;
+    @Autowired
+    private BookRepository bookRepository;
 
     private static ObjectMapper om;
     private static HttpHeaders httpHeaders;
+
     @BeforeAll
     public static void init(){
         om = new ObjectMapper();
         httpHeaders = new HttpHeaders();
         httpHeaders.setContentType(MediaType.APPLICATION_JSON);
     }
+    @BeforeEach // 각 테스트 시작전에 한번씩 실행
+    public void initData(){
+        //given
+        String title = "junit5";
+        String author = "메타 코딩";
 
+        Book book = Book.builder()
+                .title(title)
+                .author(author)
+                .build();
+
+        // when (테스트 실행)
+
+        Book savedBook = bookRepository.save(book);
+    }
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    public void getBookList_test(){
+        // given
+
+        // when
+        HttpEntity<String> request = new HttpEntity<>(null, httpHeaders);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book", HttpMethod.GET, request, String.class);
+        // then
+        System.out.println(response.getBody());
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        int code = dc.read("$.code");
+        String title = dc.read("$.body.bookList[0].title");
+        assertThat(code).isEqualTo(1);
+        assertThat(title).isEqualTo("junit5");
+    }
     @Test
     public void saveBoot_test() throws JsonProcessingException {
         // given

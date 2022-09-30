@@ -50,7 +50,7 @@ public class BookApiController {
         return new ResponseEntity<>(cmRespDto,HttpStatus.CREATED);
     }
     // 2 책 목록보기
-    @GetMapping("/api/v1/book")
+    @GetMapping("/v1/book")
     public ResponseEntity getBookList(){
 
         BookListResponse bookList = bookService.책목록보기();
