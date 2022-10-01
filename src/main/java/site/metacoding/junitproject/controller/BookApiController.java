@@ -58,13 +58,13 @@ public class BookApiController {
 
     }
     // 3. 책 한건보기
-    @GetMapping("/api/v1/book/{id}")
+    @GetMapping("/v1/book/{id}")
     public ResponseEntity<?> getBookOne(@PathVariable Long id) {
         BookResponse bookResponse = bookService.책한건보기(id);
         return new ResponseEntity<>(CMRespDto.builder().code(1).msg("글 한건보기 성공").body(bookResponse).build(),HttpStatus.OK);
     }
     // 4. 책 삭제하기
-    @DeleteMapping("/api/v1/book/{id}")
+    @DeleteMapping("/v1/book/{id}")
     public ResponseEntity deleteBook(Long id){
 
         bookService.책삭제하기(id);

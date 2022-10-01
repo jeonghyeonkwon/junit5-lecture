@@ -63,6 +63,24 @@ class BookApiControllerTest {
     }
     @Sql("classpath:db/tableInit.sql")
     @Test
+    public void getBookOne_test(){ // 1. getBookOne_test 시작전에 BeforeEach를 시작하는데
+        // given
+        Long id = 1L;
+        // when
+        HttpEntity<String> request = new HttpEntity<>(null, httpHeaders);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/"+id, HttpMethod.GET, request, String.class);
+
+        System.out.println(response.getBody());
+        // then
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        int code = dc.read("$.code");
+        String title = dc.read("$.body.title");
+        assertThat(code).isEqualTo(1);
+        assertThat(title).isEqualTo("junit5");
+    }
+
+    @Sql("classpath:db/tableInit.sql")
+    @Test
     public void getBookList_test(){
         // given
 
