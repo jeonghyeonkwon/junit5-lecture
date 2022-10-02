@@ -61,6 +61,19 @@ class BookApiControllerTest {
 
         Book savedBook = bookRepository.save(book);
     }
+
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    public void deleteBook_test(){
+        //given
+        Long id = 1L;
+        //when
+        HttpEntity<String> request = new HttpEntity<>(null,httpHeaders);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/"+id,HttpMethod.DELETE, request, String.class);
+        //then
+        System.out.println(response.getStatusCode());
+        assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
+    }
     @Sql("classpath:db/tableInit.sql")
     @Test
     public void getBookOne_test(){ // 1. getBookOne_test 시작전에 BeforeEach를 시작하는데
@@ -116,6 +129,5 @@ class BookApiControllerTest {
         assertThat(title).isEqualTo("스프링1강");
         assertThat(author).isEqualTo("메타코딩");
     }
-
 
 }
