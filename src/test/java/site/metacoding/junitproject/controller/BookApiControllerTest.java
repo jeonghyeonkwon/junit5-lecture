@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.http.*;
+import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.jdbc.Sql;
 import site.metacoding.junitproject.domain.Book;
 import site.metacoding.junitproject.dto.request.BookSaveRequest;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.*;
 // 통합테스트 (C, S, R)
 // 컨트롤러만 테스트하는 것이 아님
 //@RequiredArgsConstructor
+@ActiveProfiles("dev")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class BookApiControllerTest {
     // 이렇게 조회 하면 안됨
@@ -74,6 +76,31 @@ class BookApiControllerTest {
         System.out.println(response.getStatusCode());
         assertThat(response.getStatusCode()).isEqualTo(HttpStatus.NO_CONTENT);
     }
+    @Sql("classpath:db/tableInit.sql")
+    @Test
+    public void updateBook_test() throws Exception{
+        // given
+        Long id = 1L;
+        BookSaveRequest bookSaveRequest = new BookSaveRequest();
+        bookSaveRequest.setTitle("spring");
+        bookSaveRequest.setAuthor("메타코딩");
+
+        String body = om.writeValueAsString(bookSaveRequest);
+
+        // when
+        HttpEntity<String> request = new HttpEntity<>(body, httpHeaders);
+        ResponseEntity<String> response = rt.exchange("/api/v1/book/"+id, HttpMethod.PUT, request, String.class);
+
+        //then
+        System.out.println("updateBook_test() : " + response.getStatusCode());
+        System.out.println(response.getBody());
+        DocumentContext dc = JsonPath.parse(response.getBody());
+        String title = dc.read("$.body.title");
+        assertThat(title).isEqualTo("spring");
+    }
+
+
+
     @Sql("classpath:db/tableInit.sql")
     @Test
     public void getBookOne_test(){ // 1. getBookOne_test 시작전에 BeforeEach를 시작하는데

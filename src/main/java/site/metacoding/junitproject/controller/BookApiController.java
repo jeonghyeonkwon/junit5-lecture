@@ -71,7 +71,7 @@ public class BookApiController {
         return new ResponseEntity<>(CMRespDto.builder().code(1).msg("글 삭제하기 성공").body(null).build(),HttpStatus.NO_CONTENT);
     }
     // 5. 책 수정하기
-    @PutMapping("/api/v1/book/{id}")
+    @PutMapping("/v1/book/{id}")
     public ResponseEntity updateBook(@PathVariable Long id, @RequestBody @Valid BookSaveRequest bookSaveRequest, BindingResult bindingResult){
         if(bindingResult.hasErrors()){
             Map<String, String> errorMap = new HashMap<>();

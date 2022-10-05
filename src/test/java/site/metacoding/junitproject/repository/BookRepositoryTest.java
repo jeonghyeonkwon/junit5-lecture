@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+@ActiveProfiles("dev")
 /*
 * DB와 관련된 컴포넌트만 메모리에 로딩 (즉 컨트롤러와 서비스는 메모리에 뜨지 않는다)
 * */
